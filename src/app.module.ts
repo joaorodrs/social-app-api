@@ -1,18 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from './app.service';
-import { PostModule } from './post/post.module';
+import { SocialPostModule } from './social-post/social-post.module';
 
 @Module({
   imports: [
-    PostModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db',
+      database: 'social_app_db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    SocialPostModule,
   ],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -7,22 +7,28 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Post {
+export class SocialPost {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  ownerEmail: string;
+  owner_email: string;
 
   @Column()
-  ownerId: string;
+  owner_id: string;
 
   @Column()
-  postContent: string;
+  owner_name: string;
+
+  @Column()
+  owner_photo_url: string;
+
+  @Column()
+  post_content: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }
