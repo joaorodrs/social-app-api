@@ -23,8 +23,11 @@ export class SocialPostService {
     return this.socialPostRepository.find({ where: { id } });
   }
 
-  async update(socialPost: SocialPost): Promise<SocialPost> {
-    await this.socialPostRepository.update(socialPost.id, socialPost);
+  async update(
+    id: SocialPost['id'],
+    socialPost: SocialPost,
+  ): Promise<SocialPost> {
+    await this.socialPostRepository.update(id, socialPost);
     return socialPost;
   }
 
