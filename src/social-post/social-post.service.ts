@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SocialPost } from './social-post.entity';
 
 @Injectable()
 export class SocialPostService {
-  constructor(private socialPostRepository: Repository<SocialPost>) {}
+  constructor(
+    @InjectRepository(SocialPost)
+    private socialPostRepository: Repository<SocialPost>,
+  ) {}
 
   async create(socialPost: SocialPost): Promise<SocialPost> {
     await this.socialPostRepository.save(socialPost);
