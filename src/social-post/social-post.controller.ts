@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
   HttpStatus,
   Param,
   Post,
@@ -10,13 +11,6 @@ import {
 } from '@nestjs/common';
 import { SocialPost } from './social-post.entity';
 import { SocialPostService } from './social-post.service';
-
-const insufficientDataError = {
-  error: {
-    code: HttpStatus.BAD_REQUEST,
-    message: 'Insufficient fields',
-  },
-};
 
 @Controller('social-post')
 export class SocialPostController {
@@ -29,13 +23,15 @@ export class SocialPostController {
 
   @Get(':id')
   async indexById(@Param('id') id: SocialPost['id']) {
-    if (!id) return insufficientDataError;
+    if (!id)
+      throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     return await this.socialPostService.findById(id);
   }
 
   @Get('/owner/:id')
   async indexByOwnerId(@Param('id') ownerId: SocialPost['owner_id']) {
-    if (!ownerId) return insufficientDataError;
+    if (!ownerId)
+      throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     return await this.socialPostService.findByOwnerId(ownerId);
   }
 
@@ -48,7 +44,7 @@ export class SocialPostController {
       !socialPost.post_content ||
       !socialPost.owner_photo_url
     ) {
-      return insufficientDataError;
+      throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     }
 
     return await this.socialPostService.create(socialPost);
@@ -66,7 +62,7 @@ export class SocialPostController {
       !socialPost.post_content ||
       !socialPost.owner_photo_url
     ) {
-      return insufficientDataError;
+      throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     }
 
     return await this.socialPostService.update(id, socialPost);
@@ -74,7 +70,8 @@ export class SocialPostController {
 
   @Delete(':id')
   async delete(@Param('id') id: SocialPost['id']) {
-    if (!id) return insufficientDataError;
+    if (!id)
+      throw new HttpException('Insufficient Field', HttpStatus.BAD_REQUEST);
     return this.socialPostService.delete(id);
   }
 }
