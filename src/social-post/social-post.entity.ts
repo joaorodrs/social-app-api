@@ -26,6 +26,9 @@ export class SocialPost {
   @Column()
   post_content: string;
 
+  @Column()
+  up_votes: number;
+
   @CreateDateColumn()
   created_at: Date;
 

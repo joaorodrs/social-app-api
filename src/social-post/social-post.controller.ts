@@ -47,7 +47,25 @@ export class SocialPostController {
       throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     }
 
+    socialPost.up_votes = 0;
+
     return await this.socialPostService.create(socialPost);
+  }
+
+  @Post('upvote/:id')
+  async addUpVote(@Param('id') id: SocialPost['id']) {
+    if (!id)
+      throw new HttpException('Insufficient Fields', HttpStatus.BAD_REQUEST);
+
+    return await this.socialPostService.upVote(id);
+  }
+
+  @Post('disupvote/:id')
+  async removeUpVote(@Param('id') id: SocialPost['id']) {
+    if (!id)
+      throw new HttpException('Insufficient Fields', HttpStatus.BAD_REQUEST);
+
+    return await this.socialPostService.disUpVote(id);
   }
 
   @Put(':id')
