@@ -47,6 +47,8 @@ export class SocialPostController {
       throw new HttpException('Insufficient fields', HttpStatus.BAD_REQUEST);
     }
 
+    socialPost.up_votes = 0;
+
     return await this.socialPostService.create(socialPost);
   }
 

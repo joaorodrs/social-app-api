@@ -23,6 +23,7 @@ describe('SocialPost Controller', () => {
           updated_at: new Date(),
           owner_email: 'joao@joao.com',
           owner_name: 'Joao',
+          up_votes: 30,
           owner_photo_url: 'https://github.com/joaorodrs.png',
           post_content: 'This is a very good post',
         },
