@@ -16,7 +16,7 @@ export class SocialPostService {
   }
 
   async findRecent(): Promise<SocialPost[]> {
-    return this.socialPostRepository.find({ order: { created_at: 'ASC' } });
+    return this.socialPostRepository.find({ order: { created_at: 'DESC' } });
   }
 
   async findByOwnerId(ownerId: SocialPost['owner_id']): Promise<SocialPost[]> {
