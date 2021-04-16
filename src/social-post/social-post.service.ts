@@ -38,4 +38,36 @@ export class SocialPostService {
   async delete(id: SocialPost['id']): Promise<any> {
     return await this.socialPostRepository.delete(id);
   }
+
+  async upVote(id: SocialPost['id']): Promise<any> {
+    const postsById = await this.socialPostRepository.find({
+      where: { id },
+    });
+    const currentPost = postsById[0];
+
+    const newUpvoteCount = currentPost.up_votes + 1;
+
+    return await this.socialPostRepository.update(id, {
+      ...currentPost,
+      up_votes: newUpvoteCount,
+    });
+  }
+
+  async disUpVote(id: SocialPost['id']): Promise<any> {
+    const postsById = await this.socialPostRepository.find({
+      where: { id },
+    });
+    const currentPost = postsById[0];
+
+    if (currentPost.up_votes === 0) {
+      return;
+    }
+
+    const newUpvoteCount = currentPost.up_votes - 1;
+
+    return await this.socialPostRepository.update(id, {
+      ...currentPost,
+      up_votes: newUpvoteCount,
+    });
+  }
 }
